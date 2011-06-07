@@ -16,7 +16,7 @@ def to_hours hr_min
 end
 
 if ARGV.length < 3
-  puts 'Usage... tcalc hh:mm [+-x/] hh:mm'
+  puts 'Usage...  ' + $0 + '  hh:mm  [+-x/]  hh:mm'
   Process.exit
 end
 

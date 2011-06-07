@@ -16,7 +16,7 @@ function to_hours( $hr_min ) {
 }
 
 if ( count( $argv ) < 4 ) {
-  echo "Usage...  tcalc.php hh:mm [+-x/] hh:mm\n";
+  echo "Usage...  " . $argv[0] . "  hh:mm  [+-x/]  hh:mm\n";
   exit( 1 );
 }
 
