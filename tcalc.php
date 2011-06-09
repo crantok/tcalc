@@ -15,20 +15,34 @@ function to_hours( $hr_min ) {
   return ( 1.0 * $hours ) + ( $minutes / 60.0 );
 }
 
-if ( count( $argv ) < 4 ) {
-  echo "Usage...  " . $argv[0] . "  hh:mm  [+-x/]  hh:mm\n";
-  exit( 1 );
+function calc_and_out( $hr_min_eqn ) {
+//echo $hr_min_eqn . "\n";
+  $sanitised_hrs_min_eqn = str_replace( 'x', '*', $hr_min_eqn );
+//echo $sanitised_hrs_min_eqn . "\n";
+  $hr_mn_times = array();
+  preg_match_all( '#[.:\d]+#', $sanitised_hrs_min_eqn, $hr_mn_times );
+  $hr_times = array();
+  foreach( $hr_mn_times[0] as $hr_mn_time ) {
+    $hr_times[] = to_hours( $hr_mn_time );
+  }
+  $hrs_eqn = str_replace( $hr_mn_times[0], $hr_times, $sanitised_hrs_min_eqn );
+//echo $hrs_eqn . "\n";
+  $pretty_hr_times = array();
+  foreach( $hr_times as $hr_time ) {
+    $pretty_hr_times[] = sprintf( '%.3f',  $hr_time );
+  }
+  $pretty_hrs_eqn = str_replace( $hr_mn_times[0], $pretty_hr_times, $sanitised_hrs_min_eqn );
+//echo $pretty_hrs_eqn . "\n";
+  $result = eval( 'return ' . $hrs_eqn . ';' );
+//echo $result . "\n";
+  $pretty_result = sprintf( "%.3f", $result );
+//echo $pretty_result . "\n";
+  echo '=> ' . $pretty_result . ' <= ' . $pretty_hrs_eqn . "\n";
 }
 
-$hrs1 = to_hours($argv[1]);
-$hrs2 = to_hours($argv[3]);
+// Get rid of script name.
+array_shift( $argv );
 
-// replace the character 'x' with a multiplication symbol
-$operator = $argv[2] == 'x' ? '*' : $argv[2];
+$raw_eqn = implode( ' ', $argv );
 
-$equation = "return $hrs1 $operator $hrs2;";
-$result = eval( $equation );
-
-$pretty_eqn = sprintf( "%.3f %s %.3f", $hrs1, $argv[2], $hrs2 );
-$pretty_result = sprintf( "%.3f", $result );
-echo $pretty_eqn . ' = ' . $pretty_result . " hours\n";
+calc_and_out( $raw_eqn );
