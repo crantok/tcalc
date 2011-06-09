@@ -6,7 +6,7 @@
   
   Written by justin@ecobee.org
   
-  Add, subtract, multiply or divide two times written in hours:minutes format.
+  Perform arbitrarily complex calculations on times written in hours:minutes format.
 
 =end
 
@@ -15,20 +15,39 @@ def to_hours hr_min
   hours.to_f + minutes.to_f/60
 end
 
-if ARGV.length < 3
-  puts 'Usage...  ' + $0 + '  hh:mm  [+-x/]  hh:mm'
-  Process.exit
+def calc_and_out hr_min_eqn
+#puts hr_min_eqn
+  sanitised_hrs_min_eqn = hr_min_eqn.gsub( /(x)/, '*' )
+#puts sanitised_hrs_min_eqn
+  hrs_eqn = sanitised_hrs_min_eqn.gsub( /([.:\d]+)/ ) { (to_hours $1).to_s }
+#puts hrs_eqn
+  pretty_hrs_eqn = hr_min_eqn.gsub( /([.:\d]+)/ ) { sprintf( '%.3f', (to_hours $1).to_s ) }
+#puts pretty_hrs_eqn
+  result = eval hrs_eqn
+#puts result
+  pretty_result = sprintf( "%.3f", result )
+#puts pretty_result
+  puts '=> ' + pretty_result + ' <= ' + pretty_hrs_eqn
 end
 
-hrs1 = to_hours(ARGV[0])
-hrs2 = to_hours(ARGV[2])
-
-# replace the character 'x' with a multiplication symbol
-operator = ARGV[1] == 'x' ? '*' : ARGV[1]
-
-equation = "#{hrs1} #{operator} #{hrs2}"
-result = eval equation
-
-pretty_eqn = sprintf "%.3f %s %.3f", hrs1, ARGV[1], hrs2
-pretty_result = sprintf "%.3f", result
-puts pretty_eqn + ' = ' + pretty_result + ' hours'
+if ARGV.length > 0
+  hrs_min_eqn = ARGV.join ' '
+  calc_and_out hrs_min_eqn
+else
+  while true
+    input = gets.chomp
+    if input.empty?
+      next
+    elsif [ 'q', 'quit', 'exit' ].include? input.downcase
+      break
+    else
+      begin
+        calc_and_out input
+      rescue Exception=>e
+        puts 'Error >>>'
+        puts e
+        puts '<<<< Error'
+      end
+    end
+  end
+end
