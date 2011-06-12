@@ -3,7 +3,7 @@ importPackage(java.lang);
 
 function to_hours( hr_mn ) {
   components = hr_mn.split( ':', 2 );
-  return parseFloat( components[0] ) + parseFloat( components[1] ) / 60;
+  return parseFloat( '0' + components[0] ) + parseFloat( '0' + components[1] ) / 60;
 }
 
 function calc_and_out( hr_min_eqn ) {
