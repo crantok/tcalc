@@ -2,12 +2,9 @@
 <?php
 
 /**
-  tcalc.php - perform calculations with times
-  
-  Written by justin@ecobee.org
-  
-  Add, subtract, multiply or divide two times written in hours:minutes format.
-
+ * tcalc.php - Perform calculations with times in hh:mm format.
+ * 
+ * Written by justin@ecobee.org / justin.hellings@gmail.com
 */
 
 function to_hours( $hr_min ) {

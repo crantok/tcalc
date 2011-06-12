@@ -2,12 +2,10 @@
 
 =begin
 
-  tcalc.rb - perform calculations with times
+  tcalc.rb - Perform calculations with times in hh:mm format.
   
-  Written by justin@ecobee.org
+  Written by justin@ecobee.org / justin.hellings@gmail.com
   
-  Perform arbitrarily complex calculations on times written in hours:minutes format.
-
 =end
 
 def to_hours hr_min
@@ -44,9 +42,7 @@ else
       begin
         calc_and_out input
       rescue Exception=>e
-        puts 'Error >>>'
-        puts e
-        puts '<<<< Error'
+        puts 'Evaluation error'
       end
     end
   end
