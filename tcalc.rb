@@ -28,6 +28,7 @@ def calc_and_out hr_min_eqn
   puts '=> ' + pretty_result + ' <= ' + pretty_hrs_eqn
 end
 
+
 if ARGV.length > 0
   hrs_min_eqn = ARGV.join ' '
   calc_and_out hrs_min_eqn
