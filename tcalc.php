@@ -19,7 +19,8 @@ function calc_and_out( $hr_min_eqn ) {
 //echo $sanitised_hrs_min_eqn . "\n";
 
   // Find all times that are expressed as [hh]:[mm]
-  // NOTE: Making sure at least colon in string, else explode() complains.
+  // NOTE: Implementations in other languages use a simpler regex but explode()
+  // complains if we try to split a string on colons where no colons occur.
   $hr_mn_times = array();
   preg_match_all( '#[.\d]*:[.\d]*#', $sanitised_hrs_min_eqn, $hr_mn_times );
   
