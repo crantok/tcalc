@@ -73,6 +73,8 @@ function calc_and_out( $hr_min_eqn ) {
   @$result = eval( 'return ' . $hrs_eqn . ';' );
 //echo $result . "\n";
 
+  // PHP eval() does not raise an exception on failure so this script is
+  // structurally slightly different from the others.
   if ( $result ) {
     $pretty_result = sprintf( "%.3f", $result );
 //echo $pretty_result . "\n";
