@@ -20,7 +20,7 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-// Seem to need to pull in java packages to provide IO :-(
+// Seem to need to pull in java packages to provide CLI input :-(
 importPackage(java.io);
 importPackage(java.lang);
 
@@ -79,7 +79,7 @@ while ( true ) {
       calc_and_out( input );
     }
     catch (e) {
-      System.out.println( 'Evaluation error' );
+      print( 'Evaluation error' );
     }
   }
 }
