@@ -28,11 +28,13 @@ end
 
 def calc_and_out hr_min_eqn
 #puts hr_min_eqn
+  # Looks like ruby parameters are inviolable, otherwise I would have assigned
+  # this to hr_min_eqn
   sanitised_hrs_min_eqn = hr_min_eqn.gsub( /(x)/, '*' )
 #puts sanitised_hrs_min_eqn
-  hrs_eqn = sanitised_hrs_min_eqn.gsub( /([.:\d]+)/ ) { (to_hours $1).to_s }
+  hrs_eqn = sanitised_hrs_min_eqn.gsub( /([.:\d]+)/ ) { | t | (to_hours t).to_s }
 #puts hrs_eqn
-  pretty_hrs_eqn = hr_min_eqn.gsub( /([.:\d]+)/ ) { sprintf( '%.3f', (to_hours $1).to_s ) }
+  pretty_hrs_eqn = hr_min_eqn.gsub( /([.:\d]+)/ ) { | t | sprintf( '%.3f', (to_hours t).to_s ) }
 #puts pretty_hrs_eqn
   result = eval hrs_eqn
 #puts result
